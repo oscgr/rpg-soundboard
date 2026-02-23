@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" max-width="900">
     <v-row>
-      <v-col v-for="sound in ['/samples/schrieks.ogg', '/samples/motion.ogg']" :key="sound" cols="4">
+      <v-col v-for="sound in ['/samples/schrieks.ogg', '/samples/motion.ogg']" :key="sound" cols="6">
         <AudioPlayer :sound="sound" />
       </v-col>
     </v-row>
