@@ -1,7 +1,8 @@
 <template>
   <v-card :elevation="isPlaying ? 2 : 1" :loading="loading" rounded>
 
-    <v-card-title class="font-weight-light d-flex pa-2">Face-hugger cris
+    <v-card-title class="font-weight-light align-center d-flex pa-2">
+      <span v-text="sound.name" />
       <v-spacer />
       <v-menu open-on-hover>
         <template #activator="{props: menuProps}">
@@ -14,7 +15,10 @@
           />
         </template>
         <v-list density="compact">
-          <!--          <v-list-item title="" />-->
+          <v-list-item :append-icon="mdiPencil" :title="t('audioPlayer.edit.title')+'...'" />
+          <v-list-item :title="t('audioPlayer.defaults.volume')" />
+          <v-list-item :append-icon="mdiCheck" :title="t('audioPlayer.defaults.rateEnabled')" />
+          <v-list-item disabled :title="t('audioPlayer.defaults.rate')" />
         </v-list>
       </v-menu>
     </v-card-title>
@@ -29,7 +33,7 @@
     >
       <template #prepend>
         <v-btn
-          v-tooltip:left="{openDelay: 200, text: isPlaying ? 'Pause' : 'Play'}"
+          v-tooltip:left="{openDelay: 200, text: isPlaying ? t('audioPlayer.pause') : t('audioPlayer.play')}"
           density="comfortable"
           :disabled="loading"
           flat
@@ -40,13 +44,11 @@
       </template>
       <template #append>
         <v-btn
-          v-tooltip:right="{openDelay: 200, text: 'Loop'}"
-          :color="isLooping ? 'primary' : ''"
+          v-tooltip:right="{openDelay: 200, text: t('audioPlayer.loop')}"
           density="comfortable"
           :disabled="loading"
-          flat
           :icon="mdiSync"
-          variant="text"
+          :variant="isLooping ? 'tonal' : 'text'"
           @click="toggleLoop()"
         />
 
@@ -64,7 +66,7 @@
       >
         <template #prepend>
           <v-btn
-            v-tooltip:left="{openDelay: 200, text: 'Mute'}"
+            v-tooltip:left="{openDelay: 200, text: t('audioPlayer.mute')}"
             density="comfortable"
             :disabled="loading"
             flat
@@ -101,9 +103,11 @@
 </template>
 <script setup lang="ts">
 
+  import type { Sound } from '@/store/db.ts'
   import {
-    mdiDotsVertical,
-    mdiPause,
+    mdiCheck,
+    mdiDotsVertical, mdiDragVertical,
+    mdiPause, mdiPencil,
     mdiPlay,
     mdiSpeedometer,
     mdiSpeedometerMedium,
@@ -115,6 +119,9 @@
   import { useToggle } from '@vueuse/core'
   import { Howl } from 'howler'
   import { onMounted, onUnmounted, reactive, toRefs, watch } from 'vue'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   let soundInstance: Howl | null = null
   let animationFrameId: number
@@ -124,7 +131,7 @@
   const [isPlaying, togglePlay] = useToggle() // todo var
 
   const props = defineProps<{
-    sound: string
+    sound: Sound
   }>()
 
   const state = reactive({
@@ -181,14 +188,14 @@
     }
   })
 
-  watch(() => props.sound, () => {
+  watch(() => props.sound.content, () => {
     initSoundInstance()
   })
 
   // On init + sound change
   function initSoundInstance () {
     soundInstance = new Howl({
-      src: [props.sound],
+      src: [props.sound.content],
       html5: false,
       autoplay: false,
       volume: 1, // todo var

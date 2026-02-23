@@ -2,13 +2,37 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: {
-    message: {
-      hello: 'hello world',
+    audioPlayer: {
+      edit: {
+        title: 'Edit',
+      },
+      defaults: {
+        rateEnabled: 'Enable rate editing',
+        loop: 'Enable loop',
+        rate: 'Set default rate to chosen one',
+        volume: 'Set default volume to chosen one',
+      },
+      play: 'Play',
+      pause: 'Pause',
+      mute: 'Mute',
+      loop: 'Loop',
     },
   },
-  ja: {
-    message: {
-      hello: 'こんにちは、世界',
+  fr: {
+    audioPlayer: {
+      edit: {
+        title: 'Modifier',
+      },
+      defaults: {
+        rateEnabled: 'Activer le changement de vitesse',
+        loop: 'Activer la boucle par défaut',
+        rate: 'Mettre la vitesse choisie par défaut',
+        volume: 'Mettre le volume choisi par défaut',
+      },
+      play: 'Jouer',
+      pause: 'Mettre en pause',
+      mute: 'Couper le son',
+      loop: 'Jouer en boucle',
     },
   },
 }
