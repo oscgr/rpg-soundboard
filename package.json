@@ -1,0 +1,40 @@
+{
+  "name": "rpg-soundboard",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build --force",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "dependencies": {
+    "@fontsource/barlow": "5.2.8",
+    "@mdi/js": "^7.4.47",
+    "vue": "^3.5.28",
+    "vue-i18n": "^11.2.8",
+    "vue-router": "^4.6.4",
+    "vuetify": "^3.12.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^24.10.13",
+    "@vitejs/plugin-vue": "^6.0.4",
+    "@vue/tsconfig": "^0.8.1",
+    "eslint": "^9.39.3",
+    "eslint-config-vuetify": "^4.3.4",
+    "npm-run-all2": "^8.0.4",
+    "sass": "^1.97.3",
+    "sass-embedded": "^1.97.3",
+    "sass-loader": "^16.0.7",
+    "typescript": "~5.9.3",
+    "unplugin-fonts": "^1.4.0",
+    "vite": "^7.3.1",
+    "vite-plugin-vuetify": "^2.1.3",
+    "vue-tsc": "^3.2.5"
+  }
+}
