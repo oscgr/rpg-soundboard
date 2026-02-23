@@ -2,6 +2,8 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: {
+    addSound: 'Add sound',
+    noSound: 'No sound available',
     audioPlayer: {
       edit: {
         title: 'Edit',
@@ -19,6 +21,8 @@ const messages = {
     },
   },
   fr: {
+    addSound: 'Ajouter un son',
+    noSound: 'Aucun son disponible',
     audioPlayer: {
       edit: {
         title: 'Modifier',

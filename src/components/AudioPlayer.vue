@@ -8,7 +8,6 @@
         <template #activator="{props: menuProps}">
           <v-btn
             density="comfortable"
-            flat
             :icon="mdiDotsVertical"
             variant="text"
             v-bind="menuProps"
@@ -36,7 +35,6 @@
           v-tooltip:left="{openDelay: 200, text: isPlaying ? t('audioPlayer.pause') : t('audioPlayer.play')}"
           density="comfortable"
           :disabled="loading"
-          flat
           :icon="isPlaying ? mdiPause : mdiPlay"
           variant="text"
           @click="togglePlay()"
@@ -48,7 +46,7 @@
           density="comfortable"
           :disabled="loading"
           :icon="mdiSync"
-          :variant="isLooping ? 'tonal' : 'text'"
+          :variant="isLooping ? 'outlined' : 'text'"
           @click="toggleLoop()"
         />
 
@@ -69,7 +67,6 @@
             v-tooltip:left="{openDelay: 200, text: t('audioPlayer.mute')}"
             density="comfortable"
             :disabled="loading"
-            flat
             :icon="isMuted ? mdiVolumeOff : mdiVolumeHigh"
             variant="text"
             @click="toggleMute()"
@@ -106,7 +103,7 @@
   import type { Sound } from '@/store/db.ts'
   import {
     mdiCheck,
-    mdiDotsVertical, mdiDragVertical,
+    mdiDotsVertical,
     mdiPause, mdiPencil,
     mdiPlay,
     mdiSpeedometer,
@@ -181,10 +178,10 @@
     if (!soundInstance)
       return
 
-    if (soundInstance.playing()) {
-      soundInstance.pause()
-    } else {
+    if (p && !soundInstance.playing()) {
       soundInstance.play()
+    } else if (!p && soundInstance.playing()) {
+      soundInstance.pause()
     }
   })
 
@@ -215,6 +212,7 @@
       onend: () => {
         if (!isLooping.value) {
           state.currentTime = 0
+          togglePlay(false)
           cancelAnimationFrame(animationFrameId)
         }
       },

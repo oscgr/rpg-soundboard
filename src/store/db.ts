@@ -3,7 +3,6 @@ import { Dexie, type EntityTable } from 'dexie'
 interface Sound {
   id: number
   name: string // display name
-  index: number
   content: string // base64 audio file
 }
 interface Preference {
