@@ -2,6 +2,10 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: {
+    soundboard: 'Soundboard',
+    motionDetector: 'Motion detector',
+    toggleTheme: 'Toggle theme',
+    linkToGithub: 'Link to source',
     addSound: 'Add sound',
     noSound: 'No sound available',
     audioPlayer: {
@@ -14,6 +18,7 @@ const messages = {
         rate: 'Set default rate to chosen one',
         volume: 'Set default volume to chosen one',
       },
+      rateTooltip: 'Rate (reset to 1)',
       play: 'Play',
       pause: 'Pause',
       mute: 'Mute',
@@ -21,6 +26,10 @@ const messages = {
     },
   },
   fr: {
+    motionDetector: 'Détecteur de mouvements',
+    toggleTheme: 'Changer le thème',
+    linkToGithub: 'Lien vers la source',
+    soundboard: 'Soundboard',
     addSound: 'Ajouter un son',
     noSound: 'Aucun son disponible',
     audioPlayer: {
@@ -33,6 +42,7 @@ const messages = {
         rate: 'Mettre la vitesse choisie par défaut',
         volume: 'Mettre le volume choisi par défaut',
       },
+      rateTooltip: 'Changement de vitesse (reset à x1)',
       play: 'Jouer',
       pause: 'Mettre en pause',
       mute: 'Couper le son',

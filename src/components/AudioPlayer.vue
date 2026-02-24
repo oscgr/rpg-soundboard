@@ -73,7 +73,7 @@
           />
         </template>
       </v-slider>
-      <div class="px-4" />
+      <div v-show="smAndUp" class="px-4" />
       <v-slider
         v-model="rate"
         density="comfortable"
@@ -86,7 +86,7 @@
       >
         <template #append>
           <v-btn
-            v-tooltip:right="{openDelay: 200, text: 'Rate (reset to 1)'}"
+            v-tooltip:right="{openDelay: 200, text: t('audioPlayer.rateTooltip')}"
             density="comfortable"
             :disabled="loading || rate === 1"
             :icon="(rate === 1) ? mdiSpeedometerMedium : (rate > 1 ? mdiSpeedometer : mdiSpeedometerSlow)"
@@ -117,8 +117,10 @@
   import { Howl } from 'howler'
   import { onMounted, onUnmounted, reactive, toRefs, watch } from 'vue'
   import { useI18n } from 'vue-i18n'
+  import { useDisplay } from 'vuetify/framework'
 
   const { t } = useI18n()
+  const { smAndUp } = useDisplay()
 
   let soundInstance: Howl | null = null
   let animationFrameId: number

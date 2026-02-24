@@ -6,6 +6,22 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vue: ['vue', 'vue-i18n'],
+          ui: [
+            'vuetify',
+            'vuetify/components',
+            'vuetify/directives',
+          ],
+          vendors: ['howler'],
+          db: ['dexie'],
+        },
+      },
+    },
+  },
   plugins: [
     Vue({
       template: { transformAssetUrls },
@@ -23,7 +39,8 @@ export default defineConfig({
           {
             name: 'Barlow',
             weights: [100, 200, 300, 400, 500, 600, 700, 900],
-            styles: ['normal', 'italic'],
+            styles: ['normal'],
+            subset: 'latin',
           },
         ],
       },
