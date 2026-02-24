@@ -1,7 +1,7 @@
 <template>
-  <v-container class="fill-height" max-width="900">
+  <v-container class="fill-height" fluid>
     <v-row>
-      <v-col v-for="sound in sounds" :key="sound.id" :cols="mdAndUp ? 6 : 12">
+      <v-col v-for="sound in sounds" :key="sound.id" :cols="cols">
         <AudioPlayer :sound="sound" />
       </v-col>
       <v-col v-if="sounds.length === 0" class="text-left" cols="12">
@@ -18,18 +18,28 @@
 <script lang="ts" setup>
   import { mdiPlus } from '@mdi/js'
   import { liveQuery } from 'dexie'
-  import { onUnmounted, ref } from 'vue'
+  import { computed, onUnmounted, ref } from 'vue'
   import { useDisplay } from 'vuetify/framework'
   import AudioPlayer from '@/components/AudioPlayer.vue'
   import { db, type Sound } from '@/store/db.ts'
 
   const sounds = ref<Sound[]>([])
-  const { mdAndUp } = useDisplay()
+  const { mdAndUp, lgAndUp, xlAndUp } = useDisplay()
 
   const subscription = liveQuery(() => db.sounds.orderBy('name').toArray())
     .subscribe(result => {
       sounds.value = result
     })
+
+  const cols = computed(() => {
+    if (xlAndUp.value)
+      return 3
+    if (lgAndUp.value)
+      return 4
+    if (mdAndUp.value)
+      return 6
+    return 12
+  })
 
   async function addSound () {
     await db.sounds.add({
