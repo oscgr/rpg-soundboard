@@ -43,9 +43,10 @@
       <template #append>
         <v-btn
           v-tooltip:right="{openDelay: 200, text: t('audioPlayer.loop')}"
+          color="black"
           density="comfortable"
           :disabled="loading"
-          :icon="mdiSync"
+          :icon="mdiRepeatVariant"
           :variant="isLooping ? 'outlined' : 'text'"
           @click="toggleLoop()"
         />
@@ -84,6 +85,9 @@
         :step="0.02"
         thumb-label
       >
+        <template #thumb-label="{modelValue}">
+          x{{ modelValue }}
+        </template>
         <template #append>
           <v-btn
             v-tooltip:right="{openDelay: 200, text: t('audioPlayer.rateTooltip')}"
@@ -104,12 +108,13 @@
   import {
     mdiCheck,
     mdiDotsVertical,
-    mdiPause, mdiPencil,
+    mdiPause,
+    mdiPencil,
     mdiPlay,
+    mdiRepeatVariant,
     mdiSpeedometer,
     mdiSpeedometerMedium,
     mdiSpeedometerSlow,
-    mdiSync,
     mdiVolumeHigh,
     mdiVolumeOff,
   } from '@mdi/js'

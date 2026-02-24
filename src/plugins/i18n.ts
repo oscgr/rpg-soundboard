@@ -6,6 +6,7 @@ const messages = {
     motionDetector: 'Motion detector',
     toggleTheme: 'Toggle theme',
     linkToGithub: 'Link to source',
+    globalMute: 'Global mute',
     addSound: 'Add sound',
     noSound: 'No sound available',
     audioPlayer: {
@@ -28,6 +29,7 @@ const messages = {
   fr: {
     motionDetector: 'Détecteur de mouvements',
     toggleTheme: 'Changer le thème',
+    globalMute: 'Couper le son global',
     linkToGithub: 'Lien vers la source',
     soundboard: 'Soundboard',
     addSound: 'Ajouter un son',
