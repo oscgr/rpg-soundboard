@@ -13,7 +13,7 @@
         >
           <template #prepend>
             <v-btn
-              v-tooltip:left="{openDelay: 200, text: t('toggleTheme')}"
+              v-tooltip:left="{openDelay: 200, text: t('globalMute')}"
               density="comfortable"
               :icon="isGloballyMuted ? mdiVolumeOff : mdiVolumeHigh"
               variant="text"
@@ -91,11 +91,18 @@
       </v-col>
       <v-col class="d-none d-md-flex justify-end align-center pr-4" cols="3">
         <v-btn
+          v-tooltip:left="{openDelay: 200, text: t('toggleTheme')}"
           :icon="theme.current.value.dark ? mdiMoonWaningCrescent : mdiWeatherSunny"
           variant="flat"
           @click="theme.toggle(['light', 'dark'])"
         />
-        <v-btn href="https://github.com/oscgr/rpg-soundboard" :icon="mdiGithub" target="_blank" variant="flat" />
+        <v-btn
+          v-tooltip:left="{openDelay: 200, text: t('linkToGithub')}"
+          href="https://github.com/oscgr/rpg-soundboard"
+          :icon="mdiGithub"
+          target="_blank"
+          variant="flat"
+        />
       </v-col>
     </v-row>
   </v-app-bar>

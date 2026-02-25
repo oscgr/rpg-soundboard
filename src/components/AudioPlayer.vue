@@ -43,7 +43,6 @@
       <template #append>
         <v-btn
           v-tooltip:right="{openDelay: 200, text: t('audioPlayer.loop')}"
-          color="black"
           density="comfortable"
           :disabled="loading"
           :icon="mdiRepeatVariant"
