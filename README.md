@@ -39,3 +39,13 @@ To build your project for production, use:
 pnpm build
 ```
 Once the build process is completed, your application will be ready for deployment in a production environment.
+
+### Deploy
+
+With the `joseluisq/static-web-server` docker image, you can host the static files easily over Docker.
+
+Edit `docker-compose.yml` to match paths and settings.
+
+```bash
+docker compose up -d
+```
