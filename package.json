@@ -14,6 +14,9 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
+    "@bugsnag/browser-performance": "^3.4.1",
+    "@bugsnag/js": "^8.8.1",
+    "@bugsnag/plugin-vue": "^8.8.0",
     "@fontsource/barlow": "5.2.8",
     "@mdi/js": "^7.4.47",
     "@vueuse/core": "^14.2.1",

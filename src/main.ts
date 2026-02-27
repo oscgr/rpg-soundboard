@@ -16,6 +16,8 @@ import App from './App.vue'
 // Styles
 import 'unfonts.css'
 
+import '@/middlewares/bugsnag.ts'
+
 const app = createApp(App)
 
 registerPlugins(app)
