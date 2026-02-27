@@ -115,7 +115,7 @@
   } from '@mdi/js'
   import { useDebounceFn, useToggle } from '@vueuse/core'
   import { Howl } from 'howler'
-  import { onBeforeMount, onMounted, onUnmounted, reactive, toRefs, watch } from 'vue'
+  import { onMounted, onUnmounted, reactive, toRefs, watch } from 'vue'
   import { useI18n } from 'vue-i18n'
   import { useDisplay } from 'vuetify/framework'
   import useDB from '@/store/useDB.ts'
@@ -138,8 +138,8 @@
 
   const state = reactive({
     currentTime: 0,
-    volume: 1,
-    rate: 1,
+    volume: props.sound.preferences.volume || 1,
+    rate: props.sound.preferences.rate || 1,
     duration: 0,
     loading: true,
   })
@@ -200,7 +200,6 @@
     } else if (!p && soundInstance.playing()) {
       soundInstance.pause()
     }
-    onPreferenceChange()
   })
 
   watch(() => props.sound.content, () => {
@@ -246,10 +245,6 @@
     })
   }
 
-  onBeforeMount(() => {
-    state.rate = props.sound.preferences.rate || 1
-    state.volume = props.sound.preferences.volume || 1
-  })
   onMounted(() => {
     initSoundInstance()
   })
