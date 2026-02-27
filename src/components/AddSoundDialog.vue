@@ -27,7 +27,7 @@
               <v-text-field
                 v-model="name"
                 :label="$t('addSoundDialog.name')"
-                :rules="[rules.required(), rules.maxLength(255)]"
+                :rules="[rules.required(), rules.maxLength(255), () => (constraintError === name) ? $t('addSoundDialog.constraintError', [constraintError]) : true]"
               >
                 <template v-if="singleFile?.name" #details>
                   <span class="text-decoration-underline cursor-pointer" @click="name = singleFile?.name?.split('.')?.[0]" v-text="singleFile?.name?.split('.')?.[0]" />
@@ -63,6 +63,7 @@
   const file = ref<File[] | File | undefined>()
   const name = ref<string | undefined>('')
   const fileError = ref<false | string>(false)
+  const constraintError = ref<false | string>(false)
   const { addSound } = useDB()
   const { t } = useI18n()
 
@@ -90,6 +91,7 @@
     form.value?.reset()
     file.value = undefined
     fileError.value = false
+    constraintError.value = false
   }
 
   async function save () {
@@ -107,8 +109,17 @@
       content: await fileUtils.toBase64(singleFile.value),
       preferences: {},
     } satisfies Omit<Sound, 'id'>
-    await addSound(sound)
-    dialog.value = false
+    try {
+      await addSound(sound)
+      dialog.value = false
+    } catch (error: any) {
+      if (error?.name === 'ConstraintError') {
+        constraintError.value = name.value
+        await form.value?.validate() // ensure error is displayed
+      } else {
+        throw error
+      }
+    }
   }
 
   defineExpose({ open })

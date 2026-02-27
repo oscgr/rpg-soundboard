@@ -11,6 +11,7 @@ const messages = {
     globalMute: 'Global mute',
     addSound: 'Add sound',
     addSoundDialog: {
+      constraintError: 'Name \'{0}\' already exists',
       name: 'Name',
       fileTypeError: 'File {0} is not audio.',
       noFileError: 'No file uploaded.',
@@ -35,6 +36,7 @@ const messages = {
     soundboard: 'Soundboard',
     addSound: 'Ajouter un son',
     addSoundDialog: {
+      constraintError: 'Le nom "{0}" est déjà utilisé',
       name: 'Nom',
       fileTypeError: 'Le fichier {0} n\'est pas une piste audio.',
       noFileError: 'Aucun fichier téléversé.',
