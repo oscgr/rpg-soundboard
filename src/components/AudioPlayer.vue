@@ -4,7 +4,7 @@
     <v-card-title class="font-weight-light align-center d-flex pa-2">
       <span v-text="sound.name" />
       <v-spacer />
-      <v-menu open-on-hover>
+      <v-menu>
         <template #activator="{props: menuProps}">
           <v-btn
             density="comfortable"
@@ -14,10 +14,7 @@
           />
         </template>
         <v-list density="compact">
-          <v-list-item :append-icon="mdiPencil" :title="t('audioPlayer.edit.title')+'...'" />
-          <v-list-item :title="t('audioPlayer.defaults.volume')" />
-          <v-list-item :append-icon="mdiCheck" :title="t('audioPlayer.defaults.rateEnabled')" />
-          <v-list-item disabled :title="t('audioPlayer.defaults.rate')" />
+          <v-list-item :append-icon="mdiTrashCan" :title="t('audioPlayer.delete')" @click="deleteSound(sound.id)" />
         </v-list>
       </v-menu>
     </v-card-title>
@@ -60,7 +57,7 @@
         hide-details
         :max="1"
         :min="0"
-        thumb-label
+        :step="0.001"
       >
         <template #prepend>
           <v-btn
@@ -81,7 +78,7 @@
         hide-details
         :max="1.2"
         :min="0.8"
-        :step="0.02"
+        :step="0.01"
         thumb-label
       >
         <template #thumb-label="{modelValue}">
@@ -105,23 +102,23 @@
 
   import type { Sound } from '@/store/db.ts'
   import {
-    mdiCheck,
     mdiDotsVertical,
     mdiPause,
-    mdiPencil,
     mdiPlay,
     mdiRepeatVariant,
     mdiSpeedometer,
     mdiSpeedometerMedium,
     mdiSpeedometerSlow,
+    mdiTrashCan,
     mdiVolumeHigh,
     mdiVolumeOff,
   } from '@mdi/js'
-  import { useToggle } from '@vueuse/core'
+  import { useDebounceFn, useToggle } from '@vueuse/core'
   import { Howl } from 'howler'
-  import { onMounted, onUnmounted, reactive, toRefs, watch } from 'vue'
+  import { onBeforeMount, onMounted, onUnmounted, reactive, toRefs, watch } from 'vue'
   import { useI18n } from 'vue-i18n'
   import { useDisplay } from 'vuetify/framework'
+  import useDB from '@/store/useDB.ts'
 
   const { t } = useI18n()
   const { smAndUp } = useDisplay()
@@ -129,17 +126,19 @@
   let soundInstance: Howl | null = null
   let animationFrameId: number
 
-  const [isLooping, toggleLoop] = useToggle() // todo var
-  const [isMuted, toggleMute] = useToggle() // todo var
-  const [isPlaying, togglePlay] = useToggle() // todo var
+  const { deleteSound, patchSoundPreferences } = useDB()
 
   const props = defineProps<{
     sound: Sound
   }>()
 
+  const [isLooping, toggleLoop] = useToggle(props.sound.preferences.loop)
+  const [isMuted, toggleMute] = useToggle(props.sound.preferences.mute)
+  const [isPlaying, togglePlay] = useToggle()
+
   const state = reactive({
     currentTime: 0,
-    volume: 1, // todo var
+    volume: 1,
     rate: 1,
     duration: 0,
     loading: true,
@@ -167,19 +166,31 @@
   watch(() => state.volume, v => {
     if (soundInstance)
       soundInstance.volume(v)
+
+    onPreferenceChange()
   })
+
   watch(() => state.rate, r => {
     if (soundInstance)
       soundInstance.rate(r)
+
+    onPreferenceChange()
   })
+
   watch(isMuted, m => {
     if (soundInstance)
       soundInstance.mute(m)
+
+    onPreferenceChange()
   })
+
   watch(isLooping, l => {
     if (soundInstance)
       soundInstance.loop(l)
+
+    onPreferenceChange()
   })
+
   watch(isPlaying, p => {
     if (!soundInstance)
       return
@@ -189,11 +200,21 @@
     } else if (!p && soundInstance.playing()) {
       soundInstance.pause()
     }
+    onPreferenceChange()
   })
 
   watch(() => props.sound.content, () => {
     initSoundInstance()
   })
+
+  const onPreferenceChange = useDebounceFn(() => {
+    patchSoundPreferences(props.sound.id, {
+      volume: state.volume,
+      rate: state.rate,
+      mute: isMuted.value,
+      loop: isLooping.value,
+    })
+  }, 200)
 
   // On init + sound change
   function initSoundInstance () {
@@ -201,10 +222,10 @@
       src: [props.sound.content],
       html5: false,
       autoplay: false,
-      volume: 1, // todo var
-      loop: false, // todo var
-      rate: 1, // todo var
-      mute: false, // todo var
+      volume: state.volume,
+      loop: isLooping.value,
+      rate: state.rate,
+      mute: isMuted.value,
       onload: () => {
         state.loading = false
         state.duration = soundInstance!.duration()
@@ -225,6 +246,10 @@
     })
   }
 
+  onBeforeMount(() => {
+    state.rate = props.sound.preferences.rate || 1
+    state.volume = props.sound.preferences.volume || 1
+  })
   onMounted(() => {
     initSoundInstance()
   })
@@ -236,10 +261,10 @@
 
   const {
     currentTime,
-    volume,
     duration,
-    loading,
+    volume,
     rate,
+    loading,
   } = toRefs(state)
 
 </script>

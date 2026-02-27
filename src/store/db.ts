@@ -4,7 +4,12 @@ interface Sound {
   id: number
   name: string // display name
   content: string // base64 audio file
-  preferences: Record<string, string | number | boolean> // various preferences (for example, if it defaults to being looped)
+  preferences: {
+    loop?: boolean
+    mute?: boolean
+    rate?: number
+    volume?: number
+  }
 }
 
 const db = new Dexie('rpg-soundboard') as Dexie & {

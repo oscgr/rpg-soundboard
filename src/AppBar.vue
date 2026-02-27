@@ -9,6 +9,7 @@
           hide-details
           :max="1"
           :min="0"
+          :step="0.001"
           :width="mdAndUp ? 180 : ''"
         >
           <template #prepend>
@@ -61,6 +62,7 @@
                 hide-details
                 :max="1"
                 :min="0"
+                :step="0.001"
                 :width="mdAndUp ? 180 : ''"
               >
                 <template #prepend>

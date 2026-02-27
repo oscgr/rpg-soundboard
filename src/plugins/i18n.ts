@@ -17,15 +17,7 @@ const messages = {
     },
     noSound: 'No sound available',
     audioPlayer: {
-      edit: {
-        title: 'Edit',
-      },
-      defaults: {
-        rateEnabled: 'Enable rate editing',
-        loop: 'Enable loop',
-        rate: 'Set default rate to chosen one',
-        volume: 'Set default volume to chosen one',
-      },
+      delete: 'Delete',
       rateTooltip: 'Rate (reset to 1)',
       play: 'Play',
       pause: 'Pause',
@@ -49,15 +41,7 @@ const messages = {
     },
     noSound: 'Aucun son disponible',
     audioPlayer: {
-      edit: {
-        title: 'Modifier',
-      },
-      defaults: {
-        rateEnabled: 'Activer le changement de vitesse',
-        loop: 'Activer la boucle par défaut',
-        rate: 'Mettre la vitesse choisie par défaut',
-        volume: 'Mettre le volume choisi par défaut',
-      },
+      delete: 'Supprimer',
       rateTooltip: 'Changement de vitesse (reset à x1)',
       play: 'Jouer',
       pause: 'Mettre en pause',
