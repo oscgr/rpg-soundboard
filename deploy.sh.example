@@ -1,0 +1,1 @@
+rsync -avz --delete dist/ your_user@your_server_ip:/somewhere/on/the/server/

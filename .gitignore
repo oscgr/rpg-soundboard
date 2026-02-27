@@ -2,6 +2,7 @@
 #
 # Recommended template: Node.gitignore
 
+deploy.sh
 # Logs
 logs
 *.log
