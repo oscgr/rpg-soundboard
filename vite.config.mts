@@ -9,15 +9,16 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vue: ['vue', 'vue-i18n'],
-          ui: [
-            'vuetify',
-            'vuetify/components',
-            'vuetify/directives',
-          ],
-          vendors: ['howler'],
-          db: ['dexie'],
+        manualChunks: id => {
+          if (id.includes('howler') || id.includes('dexie')) {
+            return 'vendors'
+          }
+          if (id.includes('node_modules/vuetify')) {
+            return 'vuetify'
+          }
+          if (id.includes('node_modules/vue') || id.includes('node_modules/@vue') || id.includes('node_modules/vue-i18n')) {
+            return 'vue'
+          }
         },
         assetFileNames: assetInfo => {
           const fileNames = assetInfo.names || []
@@ -37,27 +38,17 @@ export default defineConfig({
     Vue({
       template: { transformAssetUrls },
     }),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify({
       autoImport: true,
     }),
   ],
-  define: { 'process.env': {} },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('src', import.meta.url)),
     },
-    extensions: [
-      '.js',
-      '.json',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ],
   },
   server: {
     port: 8401,
+    strictPort: true,
   },
 })
