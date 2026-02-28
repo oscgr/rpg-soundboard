@@ -24,3 +24,21 @@
   const tab = shallowRef()
 
 </script>
+<style lang="css">
+html, body, .v-application {
+  font-family: "Barlow", sans-serif !important;
+}
+
+/* Target Vuetify's specific typography utility classes.
+  We use a wildcard for classes starting with "text-" so we
+  don't accidentally override icon fonts like ".mdi"
+*/
+.v-application [class*="text-"] {
+  font-family: "Barlow", sans-serif !important;
+}
+
+/* Also ensure standard buttons pick up the font */
+.v-btn {
+  font-family: "Barlow", sans-serif !important;
+}
+</style>
