@@ -7,7 +7,7 @@
       <v-card>
         <v-card-title class="d-flex justify-space-between align-center">
           <span v-text="$t('addSound')" />
-          <v-btn :icon="mdiClose" variant="text" @click="dialog = false" />
+          <v-btn :aria-label="$t('addSound')" :icon="mdiClose" variant="text" @click="dialog = false" />
         </v-card-title>
         <v-card-text>
           <v-file-upload

@@ -1,12 +1,13 @@
 <template>
   <v-card :elevation="isPlaying ? 2 : 1" :loading="loading" rounded>
 
-    <v-card-title class="font-weight-light align-center d-flex pa-2">
-      <span v-text="sound.name" />
+    <v-card-title class="font-weight-light align-center d-flex pa-2 w-100">
+      <span v-tooltip:top="{openDelay: 2000, text: sound.name}" class="text-truncate" v-text="sound.name" />
       <v-spacer />
       <v-menu>
         <template #activator="{props: menuProps}">
           <v-btn
+            :aria-label="t('menu')"
             density="comfortable"
             :icon="mdiDotsVertical"
             variant="text"
@@ -30,6 +31,7 @@
       <template #prepend>
         <v-btn
           v-tooltip:left="{openDelay: 200, text: isPlaying ? t('audioPlayer.pause') : t('audioPlayer.play')}"
+          :aria-label="t('audioPlayer.pause')"
           density="comfortable"
           :disabled="loading"
           :icon="isPlaying ? mdiPause : mdiPlay"
@@ -40,6 +42,7 @@
       <template #append>
         <v-btn
           v-tooltip:right="{openDelay: 200, text: t('audioPlayer.loop')}"
+          :aria-label="t('audioPlayer.loop')"
           density="comfortable"
           :disabled="loading"
           :icon="mdiRepeatVariant"
@@ -62,6 +65,7 @@
         <template #prepend>
           <v-btn
             v-tooltip:left="{openDelay: 200, text: t('audioPlayer.mute')}"
+            :aria-label="t('audioPlayer.mute')"
             density="comfortable"
             :disabled="loading"
             :icon="isMuted ? mdiVolumeOff : mdiVolumeHigh"
@@ -87,6 +91,7 @@
         <template #append>
           <v-btn
             v-tooltip:right="{openDelay: 200, text: t('audioPlayer.rateTooltip')}"
+            :aria-label="t('audioPlayer.rateTooltip')"
             density="comfortable"
             :disabled="loading || rate === 1"
             :icon="(rate === 1) ? mdiSpeedometerMedium : (rate > 1 ? mdiSpeedometer : mdiSpeedometerSlow)"

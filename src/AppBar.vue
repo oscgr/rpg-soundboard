@@ -15,6 +15,7 @@
           <template #prepend>
             <v-btn
               v-tooltip:left="{openDelay: 200, text: t('globalMute')}"
+              :aria-label="t('globalMute')"
               density="comfortable"
               :icon="isGloballyMuted ? mdiVolumeOff : mdiVolumeHigh"
               variant="text"
@@ -50,7 +51,13 @@
           min-width="300px"
         >
           <template #activator="{props: menuProps, isActive}">
-            <v-btn v-if="smAndDown" :icon="isActive ? mdiClose : mdiMenu" v-bind="menuProps" variant="flat" />
+            <v-btn
+              v-if="smAndDown"
+              :aria-label="t('menu')"
+              :icon="isActive ? mdiClose : mdiMenu"
+              v-bind="menuProps"
+              variant="flat"
+            />
           </template>
           <v-list>
             <v-list-item>
@@ -68,6 +75,7 @@
                 <template #prepend>
                   <v-btn
                     v-tooltip:top="{openDelay: 200, text: t('globalMute')}"
+                    :aria-label="t('globalMute')"
                     density="comfortable"
                     :icon="isGloballyMuted ? mdiVolumeOff : mdiVolumeHigh"
                     variant="text"
@@ -94,12 +102,14 @@
       <v-col class="d-none d-md-flex justify-end align-center pr-4" cols="3">
         <v-btn
           v-tooltip:left="{openDelay: 200, text: t('toggleTheme')}"
+          :aria-label="t('toggleTheme')"
           :icon="theme.current.value.dark ? mdiMoonWaningCrescent : mdiWeatherSunny"
           variant="flat"
           @click="theme.toggle(['light', 'dark'])"
         />
         <v-btn
           v-tooltip:left="{openDelay: 200, text: t('linkToGithub')}"
+          :aria-label="t('linkToGithub')"
           href="https://github.com/oscgr/rpg-soundboard"
           :icon="mdiGithub"
           target="_blank"

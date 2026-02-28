@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height" fluid>
-    <v-row>
+    <v-row class="w-100">
       <v-col v-for="sound in sounds" :key="sound.id" :cols="cols">
         <AudioPlayer :sound="sound" />
       </v-col>

@@ -2,6 +2,7 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: {
+    menu: 'Parameters',
     save: 'Save',
     cancel: 'Cancel',
     soundboard: 'Soundboard',
@@ -27,6 +28,7 @@ const messages = {
     },
   },
   fr: {
+    menu: 'Paramètres',
     save: 'Sauvegarder',
     cancel: 'Annuler',
     motionDetector: 'Détecteur de mouvements',
