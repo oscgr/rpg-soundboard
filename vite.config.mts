@@ -41,7 +41,18 @@ export default defineConfig({
     Vuetify({
       autoImport: true,
     }),
+    {
+      name: 'generate-version',
+      generateBundle () {
+        this.emitFile({
+          type: 'asset',
+          fileName: `version`,
+          source: Date.now() + '',
+        })
+      },
+    },
   ],
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('src', import.meta.url)),

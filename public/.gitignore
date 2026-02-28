@@ -1,0 +1,3 @@
+# version checker with be built by custom vite plugin
+# cp version.example version to debug in dev mode
+version

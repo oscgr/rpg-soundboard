@@ -12,6 +12,7 @@
           </div>
         </v-tabs-window-item>
       </v-tabs-window>
+      <VersionChecker />
     </v-main>
   </v-app>
 </template>
@@ -19,10 +20,10 @@
 <script lang="ts" setup>
   import { shallowRef } from 'vue'
   import AppBar from '@/AppBar.vue'
+  import VersionChecker from '@/components/VersionChecker.vue'
   import Soundboard from '@/pages/Soundboard.vue'
 
   const tab = shallowRef()
-
 </script>
 <style lang="css">
 html, body, .v-application {

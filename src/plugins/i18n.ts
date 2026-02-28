@@ -2,6 +2,11 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: {
+    newVersionAvailable: {
+      content: 'A new version is available. Would you like to reload the page to fetch it? The current version will still work until you reload this page.',
+      yes: 'Yes',
+      no: 'No',
+    },
     menu: 'Parameters',
     save: 'Save',
     cancel: 'Cancel',
@@ -28,6 +33,11 @@ const messages = {
     },
   },
   fr: {
+    newVersionAvailable: {
+      content: 'Une nouvelle version est disponible. Souhaitez-vous recharger la page pour la télécharger? La version actuelle continuera de fonctionner jusqu\'à ce que vous rechargez cette page.',
+      yes: 'Oui',
+      no: 'Non',
+    },
     menu: 'Paramètres',
     save: 'Sauvegarder',
     cancel: 'Annuler',

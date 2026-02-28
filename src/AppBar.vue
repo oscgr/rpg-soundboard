@@ -117,6 +117,7 @@
         />
       </v-col>
     </v-row>
+    <span class="font-weight-light position-absolute" style="user-select: none; bottom: 0.2rem; right: 2em; font-size: 0.4rem" v-text="new Date(Number(version)).toLocaleString()" />
   </v-app-bar>
 </template>
 
@@ -134,15 +135,17 @@
   import { watch } from 'vue'
   import { useI18n } from 'vue-i18n'
   import { useDisplay, useTheme } from 'vuetify/framework'
+  import useVersion from '@/store/version.ts'
 
   const tab = defineModel()
   const theme = useTheme()
   const { mdAndUp, smAndDown } = useDisplay()
   const [isGloballyMuted, toggleGlobalMute] = useToggle()
+  const { version } = useVersion()
 
   const { t } = useI18n()
 
-  const volume = useSessionStorage('global-volume', 1)
+  const volume = useSessionStorage('_rpg-global-volume', 1)
 
   watch(volume, v => {
     Howler.volume(v)
