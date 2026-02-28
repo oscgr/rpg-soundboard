@@ -19,6 +19,17 @@ export default defineConfig({
           vendors: ['howler'],
           db: ['dexie'],
         },
+        assetFileNames: assetInfo => {
+          const fileNames = assetInfo.names || []
+
+          if (fileNames.some(fn => /\.(woff2?)$/i.test(fn))) {
+            // return it without the hash
+            return 'assets/[name][extname]'
+          }
+
+          // default rollup
+          return 'assets/[name]-[hash][extname]'
+        },
       },
     },
   },
