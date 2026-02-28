@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height" fluid>
-    <v-row class="w-100">
+    <v-row class="w-100 justify-center">
       <v-col v-for="sound in sounds" :key="sound.id" :cols="cols">
         <AudioPlayer :sound="sound" />
       </v-col>
@@ -29,7 +29,12 @@
 
   const subscription = liveQuery(() => db.sounds.orderBy('name').toArray())
     .subscribe(result => {
-      sounds.value = result
+      sounds.value = result.sort((a, b) => {
+        const c = new Intl.Collator(navigator.language?.slice(0, 2) || 'en').compare(a.name, b.name)
+        if (c === 0)
+          return b.id - a.id
+        return c
+      })
     })
 
   const cols = computed(() => {
