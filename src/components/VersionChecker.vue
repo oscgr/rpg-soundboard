@@ -25,7 +25,7 @@
   import useVersion from '@/store/version.ts'
 
   const dialog = ref<boolean>(false)
-  const ONE_MIN = 1000
+  const ONE_MIN = 60 * 1000
   const timeoutId = shallowRef()
   const { verify, ignoreNewVersion, ignore: _ignore, update: _update, init } = useVersion()
   const { mobile } = useDisplay()
